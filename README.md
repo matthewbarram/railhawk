@@ -2,7 +2,7 @@
 
 > A Claude Code skill that watches your Rails code through the sharp eyes of 15 Ruby/Rails thought leaders.
 
-Railhawk reviews your Rails code against the philosophies of DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, José Valim, Nate Berkopec, Eileen Uchitelle, Noel Rappin, Justin Searls, Paweł Urbanek, Akshay Khot, Chris Oliver, and Lee Robinson. It performs live web searches to ground its feedback in each leader's actual published opinions — not AI hallucination.
+Railhawk reviews your Rails code against the philosophies of DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, José Valim, Nate Berkopec, Eileen Uchitelle, Noel Rappin, Justin Searls, Paweł Urbanek, Akshay Khot, Chris Oliver, and Lee Robinson. It performs live web searches to ground its feedback in each leader's actual published opinions.
 
 ## Installation
 

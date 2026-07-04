@@ -1,77 +1,101 @@
 # David Heinemeier Hansson (DHH) — Philosophy Reference Card
 
 ## Core Philosophy
-- **"The Rails Doctrine"** — 9 pillars: Optimize for programmer happiness, Convention over Configuration, The menu is omakase, No one paradigm, Exalt beautiful code, Value integrated systems, Progress over stability, Push up a big tent, Present company excepted
-- **Monoliths over microservices** — "The majestic monolith" — one system, one team, one deploy
-- **Complexity is the enemy** — less code, fewer dependencies, fewer services
-- **"Conceptual compression"** — reduce cognitive overhead by compressing ideas into simpler abstractions
-- **Real-world problems over theoretical purity** — build what solves actual problems today
+- **Three Latin principles** (RailsWorld 2025): Libertas (Freedom), Proprietarius (Ownership), Pietas (Duty)
+- **Conceptual compression** — shrink conceptual surface area until it "fits in a normal programmer's brain"
+- **Optimize for programmer happiness** — "I created Rails for me. To make me smile, first and foremost."
+- **"Software writer, not software engineer"** — code is written for humans, incidentally executed by computers
+- **"Fight the merchants of complexity"** — many profit from layering unnecessary complexity onto software
+- **"No code runs faster than no code"** — the best code is the code never written
+- **Rule of three for abstraction** — "Duplicate twice before abstracting." Extract only when pain is proven.
 
 ## Architecture
-- **Majestic monolith** — single application, not microservices. Extract only when proven necessary.
-- **No service objects** — "Service objects are just objects that have a single method. In Ruby, that's just a function. You can define a function, what you need is a lambda, a Proc, a block."
-- **Active Record with concerns** — share code horizontally via concerns, not vertically via inheritance
-- **"Skinny controllers, fat models" then "skinny models too"** — use concerns to break up large models
-- **Domain events over service objects** — use `ActiveSupport::Notifications` for cross-cutting concerns
-- **"On the verge" extraction** — extract only when the alternative is clearly worse
+- **The Majestic Monolith** — one system, one team, one deploy. Method calls, not HTTP calls.
+- **The Citadel pattern** — extract only when subsystem has radically different ops profile (e.g., polling server). Extract as small "Outpost" app, keep monolith as Citadel.
+- **No service objects** — "that's just a fancy name for a function… a dense jungle of service objects, command patterns, and worse." Business logic on model: `@recording.archive`, not `RecordingArchiver.new(@recording).call`.
+- **Concerns** — preferred horizontal sharing mechanism. Named as adjectives: `Closeable`, `Publishable`, `Mentionable`. Each 50-150 lines, cohesive. NOT created just to reduce file size.
+- **"Rails is not your application" is rejected** — "Fuck. That. Shit." Rails IS your application.
 
-## Frontend (No-Build)
-- **"No build" JS** — import maps over Webpack/esbuild, no transpilation, no bundling
-- **Hotwire (Turbo + Stimulus)** over React/Vue/Angular
-- **HTML over the wire** — send HTML, not JSON. Server-rendered by default.
-- **"JavaScript is a liability"** — minimize JS in your app
-- **Propshaft** over Sprockets — simpler asset pipeline, no compilation
-- **Tailwind CSS** as utility-first approach for styling
-- **"The Time When Rails Eats the Frontend"** — Rails should handle the entire stack with Hotwire
+## Controllers
+- **Strictly 7 REST actions** — index, show, new, create, edit, update, destroy
+- **Custom action = missing resource** — `Cards::ClosuresController` not `close` on `CardsController`
+- **"Every single time I've regretted controllers, it's been too few, not too many"**
+- **Actions 1-5 lines** — "Empty actions are fine." Relies on Rails implicit rendering.
+- **Controllers handle HTTP only** — params, auth, redirects, rendering. No business logic.
 
-## Code Design
-- **Convention over Configuration** — follow Rails defaults, don't customize unless truly needed
-- **Naming things well** — "There are only two hard things in Computer Science: cache invalidation and naming things"
-- **"Don't Repeat Yourself"** (DRY) — but know when DRY is appropriate. Don't DRY prematurely.
-- **"You Ain't Gonna Need It"** (YAGNI) — don't build for hypothetical futures
-- **Explicit over implicit** (when it matters) — but implicit conventions over boilerplate
-- **"Code is like humor. When you have to explain it, it's bad."**
+## Models
+- **"What can a Recording do?"** should be answerable by reading the model
+- **State as records, not booleans** — `Card.joins(:closure)` not `closed: true`
+- **Bang methods** — `create!`, `save!`, `update!` for fail-fast
+- **Database constraints over AR validations** — DB is last line of defense
+- **Write-time over read-time** — counter caches, write-time roll-ups
+- **`CurrentAttributes` for request context** — don't thread `current_user` through every method
+- **`normalizes` for data cleaning** — over `before_validation`
+- **Callbacks for "auxiliary complexity"** — emails, notifications, mentions. With `suppress` escape hatch.
+
+## Frontend (No-Build, Hotwire)
+- **"You can't get faster than No Build"** — import maps, no transpilation, no bundling. HEY runs ~100 individual JS files over HTTP/2, scores 100/100 on Lighthouse.
+- **"JavaScript is a liability"** — minimize JS. Hotwire (Turbo + Stimulus) over React/Vue/Angular.
+- **Progressive enhancement ladder**: Turbo Drive → Turbo Frames → Turbo Streams → Stimulus sprinkles
+- **Propshaft** over Sprockets — minimal asset pipeline, digest stamping only
+- **TypeScript removed from Turbo** (2023) — "pollutes the code with type gymnastics… things that should be easy become hard, things that are hard become `any`. No thanks!"
+- **Vanilla CSS** with nesting/variables — not Tailwind
 
 ## Testing
-- **"Test what's valuable, not what's testable"** — don't test the framework
-- **Minitest over RSpec** — simpler, less DSL magic, pure Ruby
-- **Fixtures over factories** — faster, simpler, deterministic
-- **System tests over unit tests** — test the full stack, what the user actually experiences
-- **"TDD is dead"** debate participant — believes strict TDD can lead to over-testing and design damage
-- **Don't test private methods or implementation details**
-- **"Write tests for confidence, not coverage"**
+- **Testing pyramid**: Model tests (bottom, most) → Integration tests (middle, workhorse) → ~10 smoke tests (top, critical paths only)
+- **"System tests have failed"** — deleted 359 system tests from HEY, kept ~10. "Always brittle, always broken, always slow."
+- **"TDD is dead. Long live testing."** (2014) — "Test-first fundamentalism is like abstinence-only sex ed."
+- **Design-first, backfill tests** — "Stop obsessing about unit tests, embrace backfilling when you're happy with the design."
+- **Minitest + fixtures** — "RSpec offends me aesthetically." Real database, never mock it.
+- **Confidence-driven, not coverage-driven** — "100% coverage is silly."
+- **Rarely unit tests with mocks** — prefers integration tests exercising real objects together.
 
-## Things He Explicitly Rejects
-- **Service objects** — "that's just a fancy name for a function"
-- **Microservices** — extract only when absolutely necessary
-- **GraphQL** — unnecessary complexity over REST
-- **TypeScript/static typing** — adds ceremony without proportional benefit for most apps
-- **React/Vue SPA** — unnecessary complexity for most web apps, Hotwire solves the same problems
-- **Webpack/esbuild complexity** — import maps and no-build are the future
-- **Docker for development** — unnecessary complexity
-- **Kubernetes for most apps** — overkill
-- **TDD purism** — test-first does not guarantee better design
-- **"Best practices" without context** — every practice has tradeoffs
-- **Enterprise Java patterns in Ruby** — don't import complexity from other ecosystems
+## The Modern Omakase Stack (Rails 8)
+| Area | Default | Replaces |
+|------|---------|----------|
+| Database | SQLite | PostgreSQL/MySQL + Redis |
+| Queue | Solid Queue (DB-backed) | Sidekiq + Redis |
+| Cache | Solid Cache (DB-backed) | Redis |
+| WebSockets | Solid Cable (DB-backed) | Redis |
+| Frontend | Hotwire (Turbo + Stimulus) | React/Vue/Svelte |
+| Assets | Propshaft + Import Maps | Webpack/esbuild |
+| JS | Vanilla ES6, no build | TypeScript + bundler |
+| CSS | Vanilla CSS | Tailwind, Sass |
+| Testing | Minitest + fixtures | RSpec + FactoryBot |
+| Auth | Hand-rolled (~150 lines) | Devise |
+| Deployment | Kamal (containers on VPS/bare metal) | Heroku, Kubernetes |
+| Architecture | Majestic Monolith | Microservices |
+
+## Cloud Exit
+- 37signals left cloud Oct 2022. Spent $3.2M on cloud in 2022. Projected $10M+ savings over 5 years.
+- "Renting computers is (mostly) a bad deal for medium-sized companies with stable growth."
+- **Kamal** built for deploying containers to bare metal/VPS.
+- "Any mid-sized SaaS business with stable workloads that does not benchmark their rental bill is committing financial malpractice."
+
+## Explicit Rejections
+- Service objects ("dense jungle"), microservices ("zombie architecture"), TypeScript, RSpec, FactoryBot
+- Devise (~5,000 lines vs ~150 hand-rolled), Pundit/CanCanCan, Sidekiq/Redis (Solid ecosystem replaces)
+- GraphQL (unnecessary), React/Vue SPA, Webpack/esbuild ("massive tumor of complexity")
+- System tests at scale (brittle/slow), TDD dogma ("abstinence-only sex ed"), 100% coverage
+- Containerization for development, Kubernetes for most, serverless for stable workloads
+- "Rails is not your application" separation ("complete wank")
+- Enterprise Java patterns in Ruby
 
 ## Memorable Quotes
 - "Ruby is the language I love. Rails is the framework I built to spread that love."
-- "Optimize for programmer happiness."
-- "The menu is omakase. Trust the chef."
-- "Convention over Configuration."
-- "Rails is omakase. A team of chefs picked the ingredients. Trust them."
-- "JavaScript is a liability. The less you write, the better."
 - "Complexity is the enemy of execution."
-- "The majestic monolith."
-- "You can't rollback a bad culture decision with `git revert`."
+- "The menu is omakase. Trust the chef."
+- "You can't get faster than No Build."
+- "No code runs faster than no code. No code has fewer bugs than no code."
+- "The difference between a method call and an HTTP call is huge. The first rule of distributed computing is don't distribute your computing."
+- "Vanilla Rails is plenty."
+- "Clarity is the number one goal, not test coverage or test speed."
 - "There are no solutions. There are only trade-offs."
-- "Progress over stability."
 
 ## Primary Sources
-- dhh.dk (personal blog)
-- HEY and Basecamp codebases (public)
-- RailsConf keynotes
+- world.hey.com/dhh, dev.37signals.com
 - "The Rails Doctrine" (rubyonrails.org/doctrine)
-- "Getting Real" and "REWORK" (37signals)
-- "It Doesn't Have to Be Crazy at Work"
-- @dhh on Twitter/X
+- HEY/Basecamp/Campfire codebases (public)
+- Unofficial 37signals Coding Style Guide (compiled from 265+ PR reviews)
+- RailsConf keynotes, RailsWorld keynotes
+- "Getting Real", "REWORK", "It Doesn't Have to Be Crazy at Work" (37signals)
