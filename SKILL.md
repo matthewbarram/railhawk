@@ -1,99 +1,69 @@
 ---
 name: railhawk
-description: Use when reviewing or writing Rails code against philosophies of 14 Ruby/Rails leaders (DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, Jose Valim, Nate Berkopec, Noel Rappin, Justin Searls, Chris Oliver, Lee Robinson, Mike Perham, Katrina Owen). Triggers on "review with Railhawk" (audit) or "build/write with Railhawk" (coach).
+description: Use when reviewing or writing Rails code against 14 thought leaders (DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, and 9 specialists). Triggers on "review with Railhawk" or "build/write with Railhawk".
 ---
 
 # 🦅 Railhawk
 
-Two modes. Both use live web searches to ground advice in leaders' actual published opinions.
+Two modes, one engine. Both use live web searches per leader, not generic rules.
 
 | Mode | Trigger | Does |
 |------|---------|------|
 | **Review** | "Review X with Railhawk" | Audit existing code |
-| **Coach** | "Build/Write X with Railhawk" | Shape code as it's written |
+| **Coach** | "Build/Write X with Railhawk" | Guide code as written |
 
-## Leader Panel
+## Leaders
 
-### Core (always)
+**Core 5** (always): DHH (conventions, monolith, no-build), Sandi Metz (OOP, class sizing, testing), Avdi Grimm (confident code, errors), Matz (aesthetics, readability), Xavier Noria (organization, naming, autoloading).
 
-| Leader | Lens |
-|--------|------|
-| **DHH** | Rails conventions, monolith, no-build, complexity |
-| **Sandi Metz** | OOP design, SOLID, class/method sizing, testing |
-| **Avdi Grimm** | Confident code, error handling, method design |
-| **Matz** | Ruby aesthetics, readability, programmer happiness |
-| **Xavier Noria** | Code organization, naming, autoloading, conventions |
-
-### Specialists (topic-matched, min 3)
+**Specialists** (topic-matched, min 3):
 
 | Leader | Lens | Trigger |
 |--------|------|---------|
-| **Aaron Patterson** | Performance, internals | Queries, N+1, memory, GC |
-| **Jose Valim** | DDD, explicitness | Service objects, domain design |
-| **Nate Berkopec** | Performance, server tuning | Caching, DB performance, Puma |
-| **Noel Rappin** | Testing, Hotwire | System tests, frontend patterns |
-| **Justin Searls** | Test doubles | Mocking, unit test design |
-| **Chris Oliver** | SaaS, Hotwire, Tailwind | Billing, auth, multitenancy, views |
-| **Lee Robinson** | React/Next.js, UX, Core Web Vitals | JS frontend, performance, design |
-| **Mike Perham** | Background jobs, dependencies | Sidekiq, job design, idempotency, gem audit |
-| **Katrina Owen** | Refactoring, naming | Legacy code, naming reviews, characterization tests |
+| Aaron Patterson | Perf, internals | Queries, N+1, memory |
+| Jose Valim | DDD, explicit | Service objects, domain design |
+| Nate Berkopec | Perf, server | Caching, DB, Puma |
+| Noel Rappin | Testing, Hotwire | System tests, frontend |
+| Justin Searls | Test doubles | Mocking, unit tests |
+| Chris Oliver | SaaS, Hotwire, Tailwind | Billing, auth, views |
+| Lee Robinson | React/Next.js, UX, CWV | JS, CSS, design |
+| Mike Perham | Jobs, deps | Sidekiq, idempotency, gems |
+| Katrina Owen | Refactoring, naming | Legacy, naming reviews |
 
-### Quick File Mapping
-
-`app/controllers/` → DHH, Metz, Noria
-`app/models/` → DHH, Avdi, Metz
-`app/services/` → DHH (against), Avdi, Valim, Searls
-`app/jobs/` → Perham, Berkopec, Oliver
-`app/views/` `app/components/` → Oliver, DHH, Robinson
-`app/assets/` `app/javascript/` → Robinson, DHH, Oliver, Rappin
-`db/migrate/` → Noria, Berkopec
-`spec/` `test/` → Metz, Searls, Rappin, Avdi
-Legacy refactoring → Owen, Metz, Avdi
-Dependencies/Gemfile → Perham, DHH
-CSS/design → Oliver (Tailwind), DHH (vanilla CSS), Robinson (UX, Core Web Vitals)
+**File mapping**: `controllers`→DHH,Metz,Noria | `models`→DHH,Avdi,Metz | `services`→DHH(against),Avdi,Valim,Searls | `jobs`→Perham,Berko,Oliver | `views/components`→Oliver,DHH,Robinson | `assets/js`→Robinson,DHH,Oliver,Rappin | `migrate`→Noria,Berko | `spec/test`→Metz,Searls,Rappin,Avdi | legacy→Owen,Metz,Avdi | `Gemfile`→Perham,DHH | CSS→Oliver(Tailwind),DHH(vanilla),Robinson(UX,CWV)
 
 ---
 
-## Review Mode
+## Review
 
-1. Identify scope + type + context.
-2. Core 5 always. Match specialists. Err on inclusion.
-3. Web search per leader: `"[Name]" [specific pattern] rails recommendation`. Ground in real words.
-4. Per leader: **Conforms** / **Diverges** / **Advice** (actionable, with quote/URL).
-5. Report:
+For each leader: web search → **Conforms** / **Diverges** / **Advice** (with quote/URL). Report:
 
 ```
 # Railhawk Review
-## Scope
-## Core Panel
-### [Leader]: Conforms / Diverges / Advice
-## Specialist Panel
-### [Leader]: Conforms / Diverges / Advice
-## Synthesis: Critical (3+ flags) / Consensus / Single-Leader / Scorecard
+## Core: [leader] Conforms/Diverges/Advice
+## Specialists: [leader] Conforms/Diverges/Advice
+## Synthesis: Critical(3+) / Consensus / Single-Leader / Scorecard
 ```
 
 ---
 
-## Coach Mode
+## Coach
 
-1. **Pre-flight**: Identify file type → load relevant refs → 2-3 web searches → constraint list.
-2. **Generate**: Constraints from leader rules. Conflicts: DHH wins architecture. Perham wins jobs. Metz/Searls/Owen win testing+naming. Else simpler.
-3. **Self-check**: DHH delete half? Metz ≤100L ≤5L? Avdi rescue nil? Matz naming? Noria file conventions? Perham idempotent? Owen story-readable?
-4. **Tradeoff flag**: `> 🦅 RSpec. DHH hates it. Searls/Metz/Rappin fine. Noted.`
+1. **Pre-flight**: file type → refs → web search → constraints
+2. **Generate**: conflicts: DHH>architecture, Perham>jobs, Metz+Searls+Owen>testing+naming, else simpler
+3. **Self-check**: DHH delete half? Metz ≤100L ≤5L? Avdi rescue nil? Noria conventions? Perham idempotent? Owen story-readable?
+4. **Flag**: `🦅 RSpec. DHH hates it. Searls/Metz/Rappin fine. Noted.`
 
-### Conflict Defaults
-
-- DHH: service objects (reject), microservices (reject), build (none), auth (hand-roll), RSpec (reject), Devise (reject)
-- Perham: job design, dependency selection, idempotency
-- Metz: class ≤100L, method ≤5L (DHH concerns work within)
-- Searls: unit test design, mocking
-- Owen: naming after understanding, characterization tests for legacy
-- Ties: fewer files, fewer deps, fewer abstractions
+### Overrides
+DHH: no service objects, no microservices, no-build, hand-roll auth, no RSpec, no Devise
+Perham: jobs idempotent, kill dependencies, pass IDs not objects
+Metz: ≤100L class, ≤5L method (DHH concerns fit)
+Owen: name after understanding, characterization tests for legacy
+Tie: fewer files, fewer deps
 
 ---
 
 ## Reference Cards
 
-Load on-demand per leader:
-Core: `dhh.md`, `sandi_metz.md`, `avdi_grimm.md`, `matz.md`, `xavier_noria.md`
-Specialists: `aaron_patterson.md`, `jose_valim.md`, `nate_berkopec.md`, `noel_rappin.md`, `justin_searls.md`, `chris_oliver.md`, `lee_robinson.md`, `mike_perham.md`, `katrina_owen.md`
+Core: `dhh.md` `sandi_metz.md` `avdi_grimm.md` `matz.md` `xavier_noria.md`
+Specialists: `aaron_patterson.md` `jose_valim.md` `nate_berkopec.md` `noel_rappin.md` `justin_searls.md` `chris_oliver.md` `lee_robinson.md` `mike_perham.md` `katrina_owen.md`
