@@ -24,23 +24,31 @@ Ask Claude Code: "What skills do you have available?" -- you should see `railhaw
 
 ## Usage
 
-Invoke Railhawk in Claude Code:
+**Two modes:**
 
+### Review Mode -- Audit existing code
 ```
 Review app/services/user_registration_service.rb with Railhawk
-```
-
-```
 Run a Railhawk review on this PR
-```
-
-```
 What would DHH and Sandi Metz think of this controller design?
 ```
 
-Railhawk will:
+### Coach Mode -- Write new code the Railhawk way
+```
+Write a CommentsController with Railhawk
+Build this feature following DHH and Sandi Metz
+Implement payment processing the Railhawk way
+```
+
+Coach mode runs the philosophy engine **during** code generation, not after. It:
+1. Pre-flight: loads leader reference cards, does quick web searches, builds a constraint list
+2. Generates: writes code that satisfies all leader constraints
+3. Self-checks: flags any violations against DHH/Sandi Metz/Avdi/Matz/Xavier Noria
+4. Flags tradeoffs: if you ask for something a leader hates (e.g., RSpec), it tells you who disagrees and why
+
+Review mode:
 1. Identify the code scope and patterns
-2. Select the core 5 leaders + topic-matched specialists (Option C: Tiered)
+2. Select the core 5 leaders + topic-matched specialists
 3. Perform live web searches for each leader's actual advice on your specific patterns
 4. Produce a structured report: conforms ✓, diverges ✗, and what to do instead
 
