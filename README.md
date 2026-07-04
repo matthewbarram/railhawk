@@ -1,8 +1,8 @@
 # 🦅 Railhawk
 
-> A Claude Code skill that watches your Rails code through the sharp eyes of 15 Ruby/Rails thought leaders.
+> A Claude Code skill that watches your Rails code through the sharp eyes of 14 Ruby/Rails thought leaders.
 
-Railhawk reviews your Rails code against the philosophies of DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, José Valim, Nate Berkopec, Eileen Uchitelle, Noel Rappin, Justin Searls, Paweł Urbanek, Akshay Khot, Chris Oliver, and Lee Robinson. It performs live web searches to ground its feedback in each leader's actual published opinions.
+Railhawk reviews your Rails code against the philosophies of DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, José Valim, Nate Berkopec, Noel Rappin, Justin Searls, Chris Oliver, Lee Robinson, Mike Perham, and Katrina Owen. It performs live web searches to ground its feedback in each leader's actual published opinions.
 
 ## Installation
 
@@ -63,17 +63,16 @@ Review mode:
 - **Matz** -- Ruby aesthetics, readability, programmer happiness
 - **Xavier Noria** -- Code organization, naming, autoloading, conventions
 
-**Specialist Panel** (auto-selected by topic -- up to 10 additional leaders):
+**Specialist Panel** (auto-selected by topic -- up to 9 additional leaders):
 - Aaron Patterson -- Performance, Ruby internals, memory
 - José Valim -- DDD, functional patterns, explicitness
 - Nate Berkopec -- Performance, caching, server tuning
-- Eileen Uchitelle -- Framework internals, upgrades, multi-DB
 - Noel Rappin -- Testing, Hotwire/Stimulus patterns
 - Justin Searls -- Test doubles, isolated testing
-- Paweł Urbanek -- Architecture, modularization
-- Akshay Khot -- Rails design patterns
 - Chris Oliver -- SaaS patterns, Hotwire, Jumpstart
 - Lee Robinson -- Next.js/React, modern JS, performance
+- Mike Perham -- Background jobs, idempotency, dependency minimalism
+- Katrina Owen -- Refactoring, naming, characterization tests
 
 ### Active Web Search
 

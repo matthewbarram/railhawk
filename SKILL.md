@@ -1,6 +1,6 @@
 ---
 name: railhawk
-description: Use when reviewing or writing Rails code -- Railhawk audits against or guides toward philosophies of 15 Ruby/Rails leaders (DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, Jose Valim, Nate Berkopec, Eileen Uchitelle, Noel Rappin, Justin Searls, Pawel Urbanek, Akshay Khot, Chris Oliver, Lee Robinson). Triggers on "review with Railhawk" (audit mode) or "build/write with Railhawk" (coach mode).
+description: Use when reviewing or writing Rails code -- Railhawk audits against or guides toward philosophies of 14 Ruby/Rails leaders (DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, Jose Valim, Nate Berkopec, Noel Rappin, Justin Searls, Chris Oliver, Lee Robinson, Mike Perham, Katrina Owen). Triggers on "review with Railhawk" (audit mode) or "build/write with Railhawk" (coach mode).
 ---
 
 # 🦅 Railhawk
@@ -31,23 +31,24 @@ Two modes. Both use live web searches to ground advice in leaders' actual publis
 | **Aaron Patterson** | Performance, internals | Queries, N+1, memory, GC |
 | **Jose Valim** | DDD, explicitness | Service objects, domain design |
 | **Nate Berkopec** | Performance, server tuning | Caching, DB performance, Puma |
-| **Eileen Uchitelle** | Framework, upgrades | Migrations, multi-DB, upgrades |
 | **Noel Rappin** | Testing, Hotwire | System tests, frontend patterns |
 | **Justin Searls** | Test doubles | Mocking, unit test design |
-| **Pawel Urbanek** | Architecture | Large-scale, service extraction |
-| **Akshay Khot** | Rails patterns | Code structure, schema design |
 | **Chris Oliver** | SaaS, Hotwire | Billing, auth, multitenancy |
 | **Lee Robinson** | React/Next.js | JS frontend, API mode, SPA |
+| **Mike Perham** | Background jobs, dependencies | Sidekiq, job design, idempotency, gem audit |
+| **Katrina Owen** | Refactoring, naming | Legacy code, naming reviews, characterization tests |
 
 ### Quick File Mapping
 
 `app/controllers/` → DHH, Metz, Noria
-`app/models/` → DHH, Avdi, Metz, Uchitelle
+`app/models/` → DHH, Avdi, Metz
 `app/services/` → DHH (against), Avdi, Valim, Searls
-`app/jobs/` → Oliver, Berkopec, Urbanek
-`db/migrate/` → Uchitelle, Noria, Berkopec
+`app/jobs/` → Perham, Berkopec, Oliver
+`db/migrate/` → Noria, Berkopec
 `spec/` `test/` → Metz, Searls, Rappin, Avdi
 Frontend JS/TS → Robinson, DHH, Oliver, Rappin
+Legacy refactoring → Owen, Metz, Avdi
+Dependencies/Gemfile → Perham, DHH
 
 ---
 
@@ -80,16 +81,18 @@ Frontend JS/TS → Robinson, DHH, Oliver, Rappin
 ### Protocol
 
 1. **Pre-flight**: Identify file type → load relevant refs → 2-3 web searches → build constraint list (rules attributed to leaders).
-2. **Generate**: Write code satisfying constraints. Conflicts resolved by: DHH wins architecture (no service objects, monolith, no-build). Metz/Searls win testing. Else simpler option wins.
-3. **Self-check**: DHH delete half? Metz squint? Avdi rescue nil? Matz naming? Noria file conventions?
+2. **Generate**: Write code satisfying constraints. Conflicts resolved by: DHH wins architecture (no service objects, monolith, no-build). Perham wins background jobs (idempotency, small messages). Metz/Searls/Owen win testing + naming. Else simpler option wins.
+3. **Self-check**: DHH delete half? Metz ≤100L ≤5L? Avdi rescue nil? Matz naming? Noria file conventions? Perham idempotent? Owen story-readable?
 4. **Tradeoff flag**: If user demands something a leader rejects, flag it:
    `> 🦅 RSpec. DHH hates it ("offends me aesthetically"). Searls/Metz/Rappin fine. Noted.`
 
 ### Conflict Defaults
 
-- DHH beats everyone on: service objects (reject), microservices (reject), monolith (keep), build tools (none), auth (hand-roll), RSpec (reject), Devise (reject)
+- DHH beats everyone on: service objects (reject), microservices (reject), build tools (none), auth (hand-roll), RSpec (reject), Devise (reject)
+- Perham beats everyone on: background job design, dependency selection, idempotency
 - Metz beats DHH on: class ≤100L, method ≤5L -- DHH concerns work within this
 - Searls beats DHH on: unit test design, mocking rules
+- Owen beats everyone on: naming after understanding, characterization tests for legacy
 - Ties: simpler (fewer files, fewer deps, fewer abstractions)
 
 ---
@@ -98,4 +101,4 @@ Frontend JS/TS → Robinson, DHH, Oliver, Rappin
 
 Load on-demand from `references/` per selected leader:
 Core: `dhh.md`, `sandi_metz.md`, `avdi_grimm.md`, `matz.md`, `xavier_noria.md`
-Specialists: `aaron_patterson.md`, `jose_valim.md`, `nate_berkopec.md`, `eileen_uchitelle.md`, `noel_rappin.md`, `justin_searls.md`, `pawel_urbanek.md`, `akshay_khot.md`, `chris_oliver.md`, `lee_robinson.md`
+Specialists: `aaron_patterson.md`, `jose_valim.md`, `nate_berkopec.md`, `noel_rappin.md`, `justin_searls.md`, `chris_oliver.md`, `lee_robinson.md`, `mike_perham.md`, `katrina_owen.md`
