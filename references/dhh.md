@@ -1,54 +1,54 @@
-# David Heinemeier Hansson (DHH) — Philosophy Reference Card
+# David Heinemeier Hansson (DHH) -- Philosophy Reference Card
 
 ## Core Philosophy
 - **Three Latin principles** (RailsWorld 2025): Libertas (Freedom), Proprietarius (Ownership), Pietas (Duty)
-- **Conceptual compression** — shrink conceptual surface area until it "fits in a normal programmer's brain"
-- **Optimize for programmer happiness** — "I created Rails for me. To make me smile, first and foremost."
-- **"Software writer, not software engineer"** — code is written for humans, incidentally executed by computers
-- **"Fight the merchants of complexity"** — many profit from layering unnecessary complexity onto software
-- **"No code runs faster than no code"** — the best code is the code never written
-- **Rule of three for abstraction** — "Duplicate twice before abstracting." Extract only when pain is proven.
+- **Conceptual compression** -- shrink conceptual surface area until it "fits in a normal programmer's brain"
+- **Optimize for programmer happiness** -- "I created Rails for me. To make me smile, first and foremost."
+- **"Software writer, not software engineer"** -- code is written for humans, incidentally executed by computers
+- **"Fight the merchants of complexity"** -- many profit from layering unnecessary complexity onto software
+- **"No code runs faster than no code"** -- the best code is the code never written
+- **Rule of three for abstraction** -- "Duplicate twice before abstracting." Extract only when pain is proven.
 
 ## Architecture
-- **The Majestic Monolith** — one system, one team, one deploy. Method calls, not HTTP calls.
-- **The Citadel pattern** — extract only when subsystem has radically different ops profile (e.g., polling server). Extract as small "Outpost" app, keep monolith as Citadel.
-- **No service objects** — "that's just a fancy name for a function… a dense jungle of service objects, command patterns, and worse." Business logic on model: `@recording.archive`, not `RecordingArchiver.new(@recording).call`.
-- **Concerns** — preferred horizontal sharing mechanism. Named as adjectives: `Closeable`, `Publishable`, `Mentionable`. Each 50-150 lines, cohesive. NOT created just to reduce file size.
-- **"Rails is not your application" is rejected** — "Fuck. That. Shit." Rails IS your application.
+- **The Majestic Monolith** -- one system, one team, one deploy. Method calls, not HTTP calls.
+- **The Citadel pattern** -- extract only when subsystem has radically different ops profile (e.g., polling server). Extract as small "Outpost" app, keep monolith as Citadel.
+- **No service objects** -- "that's just a fancy name for a function… a dense jungle of service objects, command patterns, and worse." Business logic on model: `@recording.archive`, not `RecordingArchiver.new(@recording).call`.
+- **Concerns** -- preferred horizontal sharing mechanism. Named as adjectives: `Closeable`, `Publishable`, `Mentionable`. Each 50-150 lines, cohesive. NOT created just to reduce file size.
+- **"Rails is not your application" is rejected** -- "Fuck. That. Shit." Rails IS your application.
 
 ## Controllers
-- **Strictly 7 REST actions** — index, show, new, create, edit, update, destroy
-- **Custom action = missing resource** — `Cards::ClosuresController` not `close` on `CardsController`
+- **Strictly 7 REST actions** -- index, show, new, create, edit, update, destroy
+- **Custom action = missing resource** -- `Cards::ClosuresController` not `close` on `CardsController`
 - **"Every single time I've regretted controllers, it's been too few, not too many"**
-- **Actions 1-5 lines** — "Empty actions are fine." Relies on Rails implicit rendering.
-- **Controllers handle HTTP only** — params, auth, redirects, rendering. No business logic.
+- **Actions 1-5 lines** -- "Empty actions are fine." Relies on Rails implicit rendering.
+- **Controllers handle HTTP only** -- params, auth, redirects, rendering. No business logic.
 
 ## Models
 - **"What can a Recording do?"** should be answerable by reading the model
-- **State as records, not booleans** — `Card.joins(:closure)` not `closed: true`
-- **Bang methods** — `create!`, `save!`, `update!` for fail-fast
-- **Database constraints over AR validations** — DB is last line of defense
-- **Write-time over read-time** — counter caches, write-time roll-ups
-- **`CurrentAttributes` for request context** — don't thread `current_user` through every method
-- **`normalizes` for data cleaning** — over `before_validation`
-- **Callbacks for "auxiliary complexity"** — emails, notifications, mentions. With `suppress` escape hatch.
+- **State as records, not booleans** -- `Card.joins(:closure)` not `closed: true`
+- **Bang methods** -- `create!`, `save!`, `update!` for fail-fast
+- **Database constraints over AR validations** -- DB is last line of defense
+- **Write-time over read-time** -- counter caches, write-time roll-ups
+- **`CurrentAttributes` for request context** -- don't thread `current_user` through every method
+- **`normalizes` for data cleaning** -- over `before_validation`
+- **Callbacks for "auxiliary complexity"** -- emails, notifications, mentions. With `suppress` escape hatch.
 
 ## Frontend (No-Build, Hotwire)
-- **"You can't get faster than No Build"** — import maps, no transpilation, no bundling. HEY runs ~100 individual JS files over HTTP/2, scores 100/100 on Lighthouse.
-- **"JavaScript is a liability"** — minimize JS. Hotwire (Turbo + Stimulus) over React/Vue/Angular.
+- **"You can't get faster than No Build"** -- import maps, no transpilation, no bundling. HEY runs ~100 individual JS files over HTTP/2, scores 100/100 on Lighthouse.
+- **"JavaScript is a liability"** -- minimize JS. Hotwire (Turbo + Stimulus) over React/Vue/Angular.
 - **Progressive enhancement ladder**: Turbo Drive → Turbo Frames → Turbo Streams → Stimulus sprinkles
-- **Propshaft** over Sprockets — minimal asset pipeline, digest stamping only
-- **TypeScript removed from Turbo** (2023) — "pollutes the code with type gymnastics… things that should be easy become hard, things that are hard become `any`. No thanks!"
-- **Vanilla CSS** with nesting/variables — not Tailwind
+- **Propshaft** over Sprockets -- minimal asset pipeline, digest stamping only
+- **TypeScript removed from Turbo** (2023) -- "pollutes the code with type gymnastics… things that should be easy become hard, things that are hard become `any`. No thanks!"
+- **Vanilla CSS** with nesting/variables -- not Tailwind
 
 ## Testing
 - **Testing pyramid**: Model tests (bottom, most) → Integration tests (middle, workhorse) → ~10 smoke tests (top, critical paths only)
-- **"System tests have failed"** — deleted 359 system tests from HEY, kept ~10. "Always brittle, always broken, always slow."
-- **"TDD is dead. Long live testing."** (2014) — "Test-first fundamentalism is like abstinence-only sex ed."
-- **Design-first, backfill tests** — "Stop obsessing about unit tests, embrace backfilling when you're happy with the design."
-- **Minitest + fixtures** — "RSpec offends me aesthetically." Real database, never mock it.
-- **Confidence-driven, not coverage-driven** — "100% coverage is silly."
-- **Rarely unit tests with mocks** — prefers integration tests exercising real objects together.
+- **"System tests have failed"** -- deleted 359 system tests from HEY, kept ~10. "Always brittle, always broken, always slow."
+- **"TDD is dead. Long live testing."** (2014) -- "Test-first fundamentalism is like abstinence-only sex ed."
+- **Design-first, backfill tests** -- "Stop obsessing about unit tests, embrace backfilling when you're happy with the design."
+- **Minitest + fixtures** -- "RSpec offends me aesthetically." Real database, never mock it.
+- **Confidence-driven, not coverage-driven** -- "100% coverage is silly."
+- **Rarely unit tests with mocks** -- prefers integration tests exercising real objects together.
 
 ## The Modern Omakase Stack (Rails 8)
 | Area | Default | Replaces |

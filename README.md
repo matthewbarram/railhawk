@@ -20,7 +20,7 @@ cp -r railhawk ~/.claude/skills/
 
 ### Verify installation
 
-Ask Claude Code: "What skills do you have available?" — you should see `railhawk` in the list.
+Ask Claude Code: "What skills do you have available?" -- you should see `railhawk` in the list.
 
 ## Usage
 
@@ -48,28 +48,28 @@ Railhawk will:
 
 ### Tiered Review Model
 
-**Core Panel** (always runs — 5 leaders):
-- **DHH** — Rails conventions, complexity, no-build, monoliths
-- **Sandi Metz** — OOP design, SOLID, class/method sizing, testing
-- **Avdi Grimm** — Confident code, error handling, method design
-- **Matz** — Ruby aesthetics, readability, programmer happiness
-- **Xavier Noria** — Code organization, naming, autoloading, conventions
+**Core Panel** (always runs -- 5 leaders):
+- **DHH** -- Rails conventions, complexity, no-build, monoliths
+- **Sandi Metz** -- OOP design, SOLID, class/method sizing, testing
+- **Avdi Grimm** -- Confident code, error handling, method design
+- **Matz** -- Ruby aesthetics, readability, programmer happiness
+- **Xavier Noria** -- Code organization, naming, autoloading, conventions
 
-**Specialist Panel** (auto-selected by topic — up to 10 additional leaders):
-- Aaron Patterson — Performance, Ruby internals, memory
-- José Valim — DDD, functional patterns, explicitness
-- Nate Berkopec — Performance, caching, server tuning
-- Eileen Uchitelle — Framework internals, upgrades, multi-DB
-- Noel Rappin — Testing, Hotwire/Stimulus patterns
-- Justin Searls — Test doubles, isolated testing
-- Paweł Urbanek — Architecture, modularization
-- Akshay Khot — Rails design patterns
-- Chris Oliver — SaaS patterns, Hotwire, Jumpstart
-- Lee Robinson — Next.js/React, modern JS, performance
+**Specialist Panel** (auto-selected by topic -- up to 10 additional leaders):
+- Aaron Patterson -- Performance, Ruby internals, memory
+- José Valim -- DDD, functional patterns, explicitness
+- Nate Berkopec -- Performance, caching, server tuning
+- Eileen Uchitelle -- Framework internals, upgrades, multi-DB
+- Noel Rappin -- Testing, Hotwire/Stimulus patterns
+- Justin Searls -- Test doubles, isolated testing
+- Paweł Urbanek -- Architecture, modularization
+- Akshay Khot -- Rails design patterns
+- Chris Oliver -- SaaS patterns, Hotwire, Jumpstart
+- Lee Robinson -- Next.js/React, modern JS, performance
 
 ### Active Web Search
 
-Unlike other code review tools, Railhawk does live web searches for each leader's specific advice on the patterns found in your code. This means reviews cite real blog posts, talks, and articles — not generic rules.
+Unlike other code review tools, Railhawk does live web searches for each leader's specific advice on the patterns found in your code. This means reviews cite real blog posts, talks, and articles -- not generic rules.
 
 ## License
 

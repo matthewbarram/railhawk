@@ -1,11 +1,11 @@
 ---
 name: railhawk
-description: Use when reviewing Ruby on Rails code, architecture decisions, or design proposals — Railhawk watches your Rails code with the sharp eyes of 15 Ruby/Rails thought leaders (DHH, Sandi Metz, Avdi Grimm, Matz, and more). Triggers on requests for code review, architecture review, Rails best-practices audit, or when asking "what would [leader] think of this code?"
+description: Use when reviewing Ruby on Rails code, architecture decisions, or design proposals -- Railhawk watches your Rails code with the sharp eyes of 15 Ruby/Rails thought leaders (DHH, Sandi Metz, Avdi Grimm, Matz, and more). Triggers on requests for code review, architecture review, Rails best-practices audit, or when asking "what would [leader] think of this code?"
 ---
 
 # 🦅 Railhawk
 
-Review Rails code against the philosophies of 15 Ruby/Rails thought leaders. Active web searches ground each leader's feedback in their actual published opinions — blog posts, talks, interviews — not generic rules.
+Review Rails code against the philosophies of 15 Ruby/Rails thought leaders. Active web searches ground each leader's feedback in their actual published opinions -- blog posts, talks, interviews -- not generic rules.
 
 ## Tiered Review Model
 
@@ -56,7 +56,7 @@ Identify scope (file, diff, PR, design proposal), type (controller, model, servi
 
 ### Step 2: Select Reviewers
 
-Always run core 5. Match specialists using the trigger table above. Err on inclusion — missing perspective > cost of extra review.
+Always run core 5. Match specialists using the trigger table above. Err on inclusion -- missing perspective > cost of extra review.
 
 ### Step 3: Research Phase (Active Web Search)
 
@@ -67,14 +67,14 @@ For each selected leader, do a **targeted web search** specific to the code patt
 - Stimulus controller: `"Chris Oliver" Stimulus controller best practice`
 - Error handling: `"Avdi Grimm" rescue nil` or `"Avdi Grimm" exceptional ruby fail vs raise`
 
-Search for the leader's actual words. Ground feedback in real blog posts and talks, not general knowledge. Use `references/` cards as starting framework — supplement with fresh searches.
+Search for the leader's actual words. Ground feedback in real blog posts and talks, not general knowledge. Use `references/` cards as starting framework -- supplement with fresh searches.
 
 ### Step 4: Review Against Each Leader
 
 For each leader, evaluate:
-1. **Conformance** — where does the code align with their philosophy?
-2. **Divergence** — where does it deviate?
-3. **Advice** — what would they recommend? Include specific quotes/references from web search.
+1. **Conformance** -- where does the code align with their philosophy?
+2. **Divergence** -- where does it deviate?
+3. **Advice** -- what would they recommend? Include specific quotes/references from web search.
 
 ### Step 5: Produce Report
 
@@ -100,7 +100,7 @@ For each leader, evaluate:
 
 ## Synthesis
 ### Critical Issues
-[Flagged by 3+ leaders — fix first]
+[Flagged by 3+ leaders -- fix first]
 
 ### Consensus Recommendations
 [Changes recommended by multiple leaders]

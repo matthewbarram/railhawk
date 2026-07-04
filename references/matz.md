@@ -1,4 +1,4 @@
-# Yukihiro "Matz" Matsumoto — Philosophy Reference Card
+# Yukihiro "Matz" Matsumoto -- Philosophy Reference Card
 
 ## Core Philosophy: Programmer Happiness
 - Primary design goal for Ruby: making programmers happy
@@ -14,14 +14,14 @@
 
 ## Code Aesthetics (from "Treating Code as an Essay")
 Six virtues of beautiful code:
-1. **Brevity** — less code = fewer bugs
-2. **Reusability** — "never write the same thing twice"
-3. **Familiarity** — traditional control structures
-4. **Simplicity** — avoid unnecessary complexity
-5. **Flexibility** — freedom from enforcement
-6. **Balance** — all elements in harmony
+1. **Brevity** -- less code = fewer bugs
+2. **Reusability** -- "never write the same thing twice"
+3. **Familiarity** -- traditional control structures
+4. **Simplicity** -- avoid unnecessary complexity
+5. **Flexibility** -- freedom from enforcement
+6. **Balance** -- all elements in harmony
 
-"Both essays and lines of code are meant — before all else — to be read and understood by human beings."
+"Both essays and lines of code are meant -- before all else -- to be read and understood by human beings."
 
 ## Key Quotes
 - "I hope to see Ruby help every programmer in the world to be productive, and to enjoy programming, and to be happy."
@@ -34,7 +34,7 @@ Six virtues of beautiful code:
 - "MINASWAN: Matz is nice, and so we are nice."
 
 ## Testing Views
-- "I hate tests, tests aren't DRY." — prefers static analysis as supplement
+- "I hate tests, tests aren't DRY." -- prefers static analysis as supplement
 - Values avoiding repetition in all forms
 - Ruby's testing culture grew from its expressiveness, not Matz's direct advocacy
 
@@ -42,7 +42,7 @@ Six virtues of beautiful code:
 - Perl-style global variables ("my mistake")
 - autoload ("I hate autoload")
 - Multiple inheritance (hence mixins)
-- Threads ("I regret adding Threads" — prefers Ractors/Fibers)
+- Threads ("I regret adding Threads" -- prefers Ractors/Fibers)
 - Non-free/proprietary software
 - Static typing as requirement (embraces optional RBS for documentation/verification)
 
@@ -54,5 +54,5 @@ Six virtues of beautiful code:
 
 ## Primary Sources
 - Artima interviews (2003): The Philosophy of Ruby, Matz on Craftsmanship
-- "Treating Code as an Essay" — Beautiful Code, Ch. 29 (O'Reilly, 2007)
+- "Treating Code as an Essay" -- Beautiful Code, Ch. 29 (O'Reilly, 2007)
 - RubyConf/RubyKaigi keynotes

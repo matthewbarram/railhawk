@@ -1,41 +1,41 @@
-# Eileen Uchitelle — Philosophy Reference Card
+# Eileen Uchitelle -- Philosophy Reference Card
 
 ## Core Philosophy
-- **People over architecture** — "You cannot solve human problems with modularity"
-- **Upstream-first development** — "We tend to look inward for solutions, instead of pushing a patch upstream"
-- **Maintenance is foundational work** — "Organizations promote silver bullets instead of rewarding maintenance"
-- **Open source is corporate responsibility** — "How can Rails be less important than your product if your product relies on Rails?"
-- **Overcome self-doubt** — "The perceived limits we place on ourselves are often untrue"
+- **People over architecture** -- "You cannot solve human problems with modularity"
+- **Upstream-first development** -- "We tend to look inward for solutions, instead of pushing a patch upstream"
+- **Maintenance is foundational work** -- "Organizations promote silver bullets instead of rewarding maintenance"
+- **Open source is corporate responsibility** -- "How can Rails be less important than your product if your product relies on Rails?"
+- **Overcome self-doubt** -- "The perceived limits we place on ourselves are often untrue"
 
 ## Rails Internals & Upgrades
-- **Dual-boot during upgrades** — run app against multiple Rails versions simultaneously
-- **Incremental version-by-version** — never skip major versions
-- **Dedicated full-time upgrade team** — "It will never get done if you have it be a volunteer effort"
-- **Deprecation-free operation** — run clean so future upgrades aren't surprises
-- **Tool-assisted issue creation** — group identical failures, auto-create issues
-- **Zero-downtime gradual rollouts** — deploy across time zones incrementally
+- **Dual-boot during upgrades** -- run app against multiple Rails versions simultaneously
+- **Incremental version-by-version** -- never skip major versions
+- **Dedicated full-time upgrade team** -- "It will never get done if you have it be a volunteer effort"
+- **Deprecation-free operation** -- run clean so future upgrades aren't surprises
+- **Tool-assisted issue creation** -- group identical failures, auto-create issues
+- **Zero-downtime gradual rollouts** -- deploy across time zones incrementally
 - "The cost of not upgrading your application is immeasurable"
 
 ## Database & Active Record
 - **Multiple databases in Rails 6** (her signature contribution)
-- **Horizontal sharding in Rails 7** — same schema, different data across shards
-- **Functional partitioning** — different schemas per cluster
-- **Backward-compatible APIs** — "change as little of the API as possible"
-- **Prevent unnecessary connection teardown** — reuse connections with identical configs
-- **SchemaMigration as independent object** — decoupled from global AR state
+- **Horizontal sharding in Rails 7** -- same schema, different data across shards
+- **Functional partitioning** -- different schemas per cluster
+- **Backward-compatible APIs** -- "change as little of the API as possible"
+- **Prevent unnecessary connection teardown** -- reuse connections with identical configs
+- **SchemaMigration as independent object** -- decoupled from global AR state
 
 ## Testing
 - Testing infrastructure should "just work" out of the box (zero-config)
 - **System Testing** (Rails 5.1): integrated Capybara, automatic screenshots on failure
 - **Parallel Testing** (Rails 6): forked processes or threads, per-worker databases
-- **Ship at ~95%** — let community identify remaining issues
+- **Ship at ~95%** -- let community identify remaining issues
 - Flaky tests are **operational cultural problems**, not purely technical
 
 ## Culture & Teams
-- **Defensive code ownership is unhealthy** — "Rather than working together, misaligned incentives breed blame"
+- **Defensive code ownership is unhealthy** -- "Rather than working together, misaligned incentives breed blame"
 - **Open source as funnel**: users → contributors → maintainers
-- **Constructive feedback only** — never "this code sucks" or close PRs without explanation
-- **"Find something no one else wants to work on"** — unglamorous work = outsized impact
+- **Constructive feedback only** -- never "this code sucks" or close PRs without explanation
+- **"Find something no one else wants to work on"** -- unglamorous work = outsized impact
 
 ## Key Warnings
 - Don't mutate Minitest classes

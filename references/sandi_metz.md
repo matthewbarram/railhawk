@@ -1,4 +1,4 @@
-# Sandi Metz — Philosophy Reference Card
+# Sandi Metz -- Philosophy Reference Card
 
 ## Core Philosophy
 - **Purpose of design is economic**: reduce cost of change
@@ -16,10 +16,10 @@
 **Escape clause**: break rules if your pair agrees. These are forcing functions, not laws.
 
 ## Refactoring
-- **"Make the change easy, then make the easy change"** — two-step approach
+- **"Make the change easy, then make the easy change"** -- two-step approach
 - **Shameless Green**: simplest code first, tolerate duplication, wait for patterns to emerge
 - **Flocking Rules**: systematically turn duplication into abstractions, one line at a time
-- **Refactor under green only** — tests are the safety net
+- **Refactor under green only** -- tests are the safety net
 
 ## Duplication vs Wrong Abstraction
 - **"Duplication is far cheaper than the wrong abstraction"**
@@ -29,9 +29,9 @@
 
 ## Testing
 - **Messages grid**: incoming/outgoing × query/command → what to test
-- **Don't test private methods** — no safety, breaks on refactor
-- **Don't test outgoing query messages** — no public side effects
-- **Mock outgoing command messages** — verify message was sent
+- **Don't test private methods** -- no safety, breaks on refactor
+- **Don't test outgoing query messages** -- no public side effects
+- **Mock outgoing command messages** -- verify message was sent
 - **Stubs for queries, mocks for commands**
 - **Contract tests** keep test doubles in sync
 - Test interface, not implementation
@@ -41,7 +41,7 @@
 - **Depend on things that change less often than you do**
 - **Inheritance**: shallow/wide or deep/narrow, never both. For specialization, not code sharing.
 - **Composition + DI**: Isolate variable → Name concept → Define role → Inject player
-- **Avoid type-checking conditionals** — use polymorphism instead
+- **Avoid type-checking conditionals** -- use polymorphism instead
 
 ## Key Warnings
 - Premature DRY/abstraction

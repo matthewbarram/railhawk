@@ -1,31 +1,31 @@
-# Xavier Noria (fxn) — Philosophy Reference Card
+# Xavier Noria (fxn) -- Philosophy Reference Card
 
 ## Core Philosophy
-- **Pragmatic perfectionism** — "rigor, correctness, pragmatism, and simplicity"
-- **Against "magic," for "catalyst"** — automation should be transparent, enhancing not hiding
-- **The dateless mindset** — estimation regularly off by 2-3x; date-driven = bad incentives
-- **Open source as knowledge-sharing** — "principles I strongly believe construct a better society"
-- **Measure twice, cut once** — build only what's absolutely essential
+- **Pragmatic perfectionism** -- "rigor, correctness, pragmatism, and simplicity"
+- **Against "magic," for "catalyst"** -- automation should be transparent, enhancing not hiding
+- **The dateless mindset** -- estimation regularly off by 2-3x; date-driven = bad incentives
+- **Open source as knowledge-sharing** -- "principles I strongly believe construct a better society"
+- **Measure twice, cut once** -- build only what's absolutely essential
 
 ## Code Organization & Naming
-- **File naming must match constant naming exactly** — `user.rb` defines `User`
-- **Directories ARE namespaces** — subdirectories correspond to nested modules
-- **Use fully-nested module syntax** — `module A; module B; end` not `module A::B` (constant lookup differences)
-- **Rails does not mandate its default structure** — "projects can add service objects, form objects, decorators"
-- **On inflection: "You think less"** — what you see is what you get
+- **File naming must match constant naming exactly** -- `user.rb` defines `User`
+- **Directories ARE namespaces** -- subdirectories correspond to nested modules
+- **Use fully-nested module syntax** -- `module A; module B; end` not `module A::B` (constant lookup differences)
+- **Rails does not mandate its default structure** -- "projects can add service objects, form objects, decorators"
+- **On inflection: "You think less"** -- what you see is what you get
 
 ## Autoloading & Zeitwerk
-- **`Module#autoload` is NOT `const_missing`** — fundamental architectural distinction
-- **Be as lazy as possible** — nothing loaded until referenced
-- **Absolute paths only** — performance: avoid `$LOAD_PATH` search
-- **Thread safety is developer responsibility** — Zeitwerk is thread-safe, client coordination required
-- **Eager loading is CoW-friendly** — designed for forking servers
+- **`Module#autoload` is NOT `const_missing`** -- fundamental architectural distinction
+- **Be as lazy as possible** -- nothing loaded until referenced
+- **Absolute paths only** -- performance: avoid `$LOAD_PATH` search
+- **Thread safety is developer responsibility** -- Zeitwerk is thread-safe, client coordination required
+- **Eager loading is CoW-friendly** -- designed for forking servers
 
 ## Upgrade & Deprecation
-- **Phased deprecation with long migration windows** — classic→Zeitwerk had 2+ year window
-- **Clean removal of legacy code** — deleted ~90% of `active_support/dependencies.rb` when migration done
-- **No autoloading during initialization** — use `Rails.application.config.to_prepare` blocks
-- **Reassuring but realistic** — "Many non-trivial Rails applications reported really smooth switches"
+- **Phased deprecation with long migration windows** -- classic→Zeitwerk had 2+ year window
+- **Clean removal of legacy code** -- deleted ~90% of `active_support/dependencies.rb` when migration done
+- **No autoloading during initialization** -- use `Rails.application.config.to_prepare` blocks
+- **Reassuring but realistic** -- "Many non-trivial Rails applications reported really smooth switches"
 
 ## Things He Warns Against
 - Using `const_missing` for autoloading (lacks nesting context)

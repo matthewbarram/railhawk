@@ -1,36 +1,36 @@
-# Paweł Urbanek — Philosophy Reference Card
+# Paweł Urbanek -- Philosophy Reference Card
 
 ## Core Philosophy
-- **Pragmatic, measured optimization** — high-leverage, low-effort changes with measurable results
-- **Evidence over intuition** — "EXPLAIN ANALYZE allows you confidently make changes based on solid evidence"
-- **Caching is a last resort** — "The best way to implement caching is to avoid it"
-- **Own your platform** — self-hosted content, own your learning
-- **No 'just' in software** — "Lexically there's never a need to include the word 'just'"
-- **Infrastructure ownership matters** — migrate from managed to controllable as projects mature
+- **Pragmatic, measured optimization** -- high-leverage, low-effort changes with measurable results
+- **Evidence over intuition** -- "EXPLAIN ANALYZE allows you confidently make changes based on solid evidence"
+- **Caching is a last resort** -- "The best way to implement caching is to avoid it"
+- **Own your platform** -- self-hosted content, own your learning
+- **No 'just' in software** -- "Lexically there's never a need to include the word 'just'"
+- **Infrastructure ownership matters** -- migrate from managed to controllable as projects mature
 
 ## 5-Layer Optimization Recipe (in order)
-1. **Frontend/HTTP first** — caching headers, HTTP/2, CDN, compression (best ROI)
-2. **Eliminate N+1 queries** — "top performance killer for Rails applications"
-3. **Optimize individual SQL queries** — using rails-pg-extras
-4. **Database configuration** — `random_page_cost`, `work_mem`, cache hit ratios
-5. **Server configuration** — Puma threading, instance sizing, jemalloc
+1. **Frontend/HTTP first** -- caching headers, HTTP/2, CDN, compression (best ROI)
+2. **Eliminate N+1 queries** -- "top performance killer for Rails applications"
+3. **Optimize individual SQL queries** -- using rails-pg-extras
+4. **Database configuration** -- `random_page_cost`, `work_mem`, cache hit ratios
+5. **Server configuration** -- Puma threading, instance sizing, jemalloc
 
 ## Architecture & Code
-- **Service objects as transition pattern** — not final architecture, enum-style result codes
-- **View presenters via SimpleDelegator** — not Draper (memory concerns)
-- **Design APIs around primitive values** — pass IDs not AR instances
-- **Rails helpers are anti-pattern** — global scope, hard to test, naming collisions
-- **Adding gems is risk** — evaluate on memory, maintenance, thread-safety
-- **DB constraints complement app validations** — NOT NULL, foreign keys, partial indexes
+- **Service objects as transition pattern** -- not final architecture, enum-style result codes
+- **View presenters via SimpleDelegator** -- not Draper (memory concerns)
+- **Design APIs around primitive values** -- pass IDs not AR instances
+- **Rails helpers are anti-pattern** -- global scope, hard to test, naming collisions
+- **Adding gems is risk** -- evaluate on memory, maintenance, thread-safety
+- **DB constraints complement app validations** -- NOT NULL, foreign keys, partial indexes
 
 ## Performance Patterns
-- **Brotli over Gzip** — 13-25% better compression for cache operations
-- **`random_page_cost` 1.1 on SSD** — from default 4
-- **`select(:id, :col)` not SELECT *** — 65% memory reduction on 12-column models
-- **Subquery caching** — extract IDs as primitives, then pass to subsequent queries
-- **Jemalloc** — 15-20% memory reduction, often enables extra Puma worker
-- **`load_async`** is powerful but dangerous — almost doubles DB connections
-- **ActiveRecord is double-edged sword** — "best feature and greatest sin at the same time"
+- **Brotli over Gzip** -- 13-25% better compression for cache operations
+- **`random_page_cost` 1.1 on SSD** -- from default 4
+- **`select(:id, :col)` not SELECT *** -- 65% memory reduction on 12-column models
+- **Subquery caching** -- extract IDs as primitives, then pass to subsequent queries
+- **Jemalloc** -- 15-20% memory reduction, often enables extra Puma worker
+- **`load_async`** is powerful but dangerous -- almost doubles DB connections
+- **ActiveRecord is double-edged sword** -- "best feature and greatest sin at the same time"
 
 ## Key Warnings
 - Overusing AR transactions (row-level locks)
