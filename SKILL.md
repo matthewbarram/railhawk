@@ -1,234 +1,101 @@
 ---
 name: railhawk
-description: Use when reviewing Ruby on Rails code, architecture decisions, or design proposals -- or when writing Rails code with philosophical guidance. Railhawk watches your Rails code with the sharp eyes of 15 Ruby/Rails thought leaders (DHH, Sandi Metz, Avdi Grimm, Matz, and more). Two modes: Review (audit existing code) and Coach (guide code generation in real time).
+description: Use when reviewing or writing Rails code -- Railhawk audits against or guides toward philosophies of 15 Ruby/Rails leaders (DHH, Sandi Metz, Avdi Grimm, Matz, Xavier Noria, Aaron Patterson, Jose Valim, Nate Berkopec, Eileen Uchitelle, Noel Rappin, Justin Searls, Pawel Urbanek, Akshay Khot, Chris Oliver, Lee Robinson). Triggers on "review with Railhawk" (audit mode) or "build/write with Railhawk" (coach mode).
 ---
 
 # 🦅 Railhawk
 
-Two modes, one philosophy engine:
+Two modes. Both use live web searches to ground advice in leaders' actual published opinions.
 
-| Mode | Trigger | Purpose |
-|------|---------|---------|
-| **Review** | "Review X with Railhawk" | Audit existing code against leader philosophies |
-| **Coach** | "Build X with Railhawk" / "Write X the Railhawk way" | Guide code generation to match leader philosophies |
+| Mode | Trigger | Does |
+|------|---------|------|
+| **Review** | "Review X with Railhawk" | Audit existing code |
+| **Coach** | "Build/Write X with Railhawk" | Shape code as it's written |
 
-Both modes use live web searches to ground everything in leaders' actual published opinions -- blog posts, talks, interviews -- not generic rules.
+## Leader Panel
 
-## The 15 Leaders
+### Core (always)
 
-### Core Panel (always consulted)
-
-| Leader | Primary Lens |
-|--------|-------------|
-| **DHH** | Rails conventions, complexity, no-build, monoliths |
+| Leader | Lens |
+|--------|------|
+| **DHH** | Rails conventions, monolith, no-build, complexity |
 | **Sandi Metz** | OOP design, SOLID, class/method sizing, testing |
 | **Avdi Grimm** | Confident code, error handling, method design |
 | **Matz** | Ruby aesthetics, readability, programmer happiness |
 | **Xavier Noria** | Code organization, naming, autoloading, conventions |
 
-### Topic-Matched Specialists
+### Specialists (topic-matched, min 3)
 
-Auto-select based on code patterns. Minimum 3, maximum all 10.
+| Leader | Lens | Trigger |
+|--------|------|---------|
+| **Aaron Patterson** | Performance, internals | Queries, N+1, memory, GC |
+| **Jose Valim** | DDD, explicitness | Service objects, domain design |
+| **Nate Berkopec** | Performance, server tuning | Caching, DB performance, Puma |
+| **Eileen Uchitelle** | Framework, upgrades | Migrations, multi-DB, upgrades |
+| **Noel Rappin** | Testing, Hotwire | System tests, frontend patterns |
+| **Justin Searls** | Test doubles | Mocking, unit test design |
+| **Pawel Urbanek** | Architecture | Large-scale, service extraction |
+| **Akshay Khot** | Rails patterns | Code structure, schema design |
+| **Chris Oliver** | SaaS, Hotwire | Billing, auth, multitenancy |
+| **Lee Robinson** | React/Next.js | JS frontend, API mode, SPA |
 
-| Leader | Lens | Triggered When |
-|--------|------|----------------|
-| **Aaron Patterson** | Performance, internals, memory | Query optimization, N+1, memory, GC tuning |
-| **José Valim** | DDD, functional patterns, explicitness | Service objects, domain design, concurrency |
-| **Nate Berkopec** | Rails performance, server tuning | Caching, server config, database performance |
-| **Eileen Uchitelle** | Framework internals, upgrades, multi-DB | Migrations, upgrades, multiple databases |
-| **Noel Rappin** | Testing, Hotwire/Stimulus | System tests, Hotwire, frontend patterns |
-| **Justin Searls** | Test doubles, isolated testing | Mocking, unit testing, test design |
-| **Paweł Urbanek** | Architecture, modularization | Large-scale architecture, service extraction |
-| **Akshay Khot** | Rails patterns, code organization | Design patterns, code structure |
-| **Chris Oliver** | SaaS patterns, Hotwire, Jumpstart | Billing, auth, multitenancy, deployment |
-| **Lee Robinson** | React/Next.js, modern JS, performance | React/Next.js frontend, API mode, SPA |
+### Quick File Mapping
 
-### Quick File-Type Mapping
-
-| File/Directory | Leaders |
-|---------------|---------|
-| `app/controllers/` | DHH, Sandi Metz, Xavier Noria |
-| `app/models/` | DHH, Avdi Grimm, Sandi Metz, Eileen Uchitelle |
-| `app/services/` | DHH (against), Avdi Grimm, José Valim, Justin Searls |
-| `app/jobs/` | Chris Oliver, Nate Berkopec, Paweł Urbanek |
-| `db/migrate/` | Eileen Uchitelle, Xavier Noria, Nate Berkopec |
-| `spec/` or `test/` | Sandi Metz, Justin Searls, Noel Rappin, Avdi Grimm |
-| Frontend JS/TS | Lee Robinson, DHH, Chris Oliver, Noel Rappin |
+`app/controllers/` → DHH, Metz, Noria
+`app/models/` → DHH, Avdi, Metz, Uchitelle
+`app/services/` → DHH (against), Avdi, Valim, Searls
+`app/jobs/` → Oliver, Berkopec, Urbanek
+`db/migrate/` → Uchitelle, Noria, Berkopec
+`spec/` `test/` → Metz, Searls, Rappin, Avdi
+Frontend JS/TS → Robinson, DHH, Oliver, Rappin
 
 ---
 
-## Mode 1: Review (Audit Existing Code)
+## Review Mode
 
-### Step 1: Understand Scope
-Identify scope (file, diff, PR, design proposal), type (controller, model, service, etc.), and context (what problem is this solving?).
+**Step 1**: Identify scope + type + context.
 
-### Step 2: Select Reviewers
-Always run core 5. Match specialists using trigger table above. Err on inclusion.
+**Step 2**: Core 5 always. Match specialists. Err on inclusion.
 
-### Step 3: Research (Active Web Search)
-For each selected leader, do targeted web search for specific code patterns. Examples:
+**Step 3**: Web search per leader: `"[Name]" [specific pattern] rails recommendation`. Ground in real words, not general knowledge.
 
-- Service object: `"David Heinemeier Hansson" service objects Rails alternative`
-- N+1 query: `"Nate Berkopec" N+1 query Rails fix`
-- Stimulus controller: `"Chris Oliver" Stimulus controller best practice`
-- Error handling: `"Avdi Grimm" rescue nil exceptional ruby`
+**Step 4**: Per leader: **Conforms** / **Diverges** / **Advice** (actionable, with quote/URL).
 
-Search for leaders' actual words. Ground feedback in real blog posts and talks.
+**Step 5**: Produce report:
 
-### Step 4: Evaluate Per Leader
-For each leader: **Conforms** (alignment), **Diverges** (deviation), **Advice** (actionable change with reference/quote).
-
-### Step 5: Produce Report
-
-```markdown
-# Railhawk Philosophy Review
-
+```
+# Railhawk Review
 ## Scope
-[What was reviewed]
-
 ## Core Panel
-### DHH
-**Conforms**: [specifics]
-**Diverges**: [specifics]
-**Advice**: [actionable change, with supporting reference/quote]
-
-### Sandi Metz
-[Same structure]
-...
-
+### [Leader]: Conforms / Diverges / Advice
 ## Specialist Panel
-### [Leader Name]
-[Same structure]
-
-## Synthesis
-### Critical Issues
-[Flagged by 3+ leaders -- fix first]
-
-### Consensus Recommendations
-[Changes recommended by multiple leaders]
-
-### Single-Leader Flags
-[Domain-specific issues from individual specialists]
-
-### Scorecard
-| Leader | Conformance | Key Issue |
-|--------|-------------|-----------|
+### [Leader]: Conforms / Diverges / Advice
+## Synthesis: Critical (3+ flags) / Consensus / Single-Leader / Scorecard
 ```
 
 ---
 
-## Mode 2: Coach (Guide Code Generation)
+## Coach Mode
 
-Coach mode runs Railhawk's philosophy engine **during** code generation, not after. It shapes the code as it's written.
+### Protocol
 
-### When Coach Mode Activates
-Triggers include: "Build X with Railhawk", "Write X the Railhawk way", "Implement X following DHH/Sandi Metz/etc", "Generate this controller the Railhawk way".
+1. **Pre-flight**: Identify file type → load relevant refs → 2-3 web searches → build constraint list (rules attributed to leaders).
+2. **Generate**: Write code satisfying constraints. Conflicts resolved by: DHH wins architecture (no service objects, monolith, no-build). Metz/Searls win testing. Else simpler option wins.
+3. **Self-check**: DHH delete half? Metz squint? Avdi rescue nil? Matz naming? Noria file conventions?
+4. **Tradeoff flag**: If user demands something a leader rejects, flag it:
+   `> 🦅 RSpec. DHH hates it ("offends me aesthetically"). Searls/Metz/Rappin fine. Noted.`
 
-### Coach Protocol
+### Conflict Defaults
 
-#### Phase 1: Pre-Flight (before writing code)
-1. Identify what's being built (controller, model, service, migration, test, etc.)
-2. Identify relevant leaders from the file-type mapping + trigger table
-3. Load their reference cards from `references/`
-4. Do 2-3 quick web searches for specific patterns the code will use
-5. Synthesize a **constraint list** -- specific rules the code must follow, attributed to specific leaders
-
-#### Phase 2: Generate (write the code)
-Write code that satisfies the constraint list. For each design decision, apply the highest-priority leader's rule. When leaders conflict:
-
-| Conflict | Resolution |
-|----------|-----------|
-| DHH vs Sandi Metz on class size | Sandi Metz: ≤100 lines, ≤5 line methods. DHH's concern pattern works within this. |
-| DHH vs Avdi Grimm on service objects | DHH wins: no service objects. Put logic on model with concerns. |
-| DHH vs Justin Searls on mocking | Context-dependent: Searls for unit test design, DHH for integration preference. |
-| DHH vs Chris Oliver on Devise | DHH wins: hand-rolled auth unless user specifically requests Devise. |
-| Sandi Metz vs Justin Searls on testing | Metz for what to test, Searls for how to mock. Complementary, not conflicting. |
-
-Default tiebreaker: **simpler option wins** (ponytail principle -- fewer files, fewer dependencies, fewer abstractions).
-
-#### Phase 3: Self-Check (after writing code)
-After generating, run a quick internal checklist:
-1. Would DHH delete half of this? (If yes, what?)
-2. Does each method pass the Sandi Metz squint test?
-3. Are there any `rescue nil` or timid code patterns Avdi Grimm would flag?
-4. Is naming Matz-readable? (File names match constants, methods tell intent.)
-5. Does file structure match Xavier Noria's conventions?
-
-#### Phase 4: Flag Tradeoffs
-If any generated code deliberately violates a leader's advice (e.g., user demands RSpec but DHH hates it), flag it explicitly:
-
-```markdown
-> 🦅 **Railhawk note**: This uses RSpec. DHH would use Minitest here ("RSpec offends me aesthetically").
-> Justin Searls and Sandi Metz are fine with it. Tradeoff noted.
-```
-
-### Coach Mode Example
-
-User: "Write a CommentsController the Railhawk way"
-
-Pre-flight:
-- File: `app/controllers/comments_controller.rb` → Leaders: DHH, Sandi Metz, Xavier Noria
-- Quick search: DHH REST controller conventions + DHH concern patterns
-- Constraint list: 7 REST actions only, 1-5 lines each, empty actions fine, no service objects, use concerns on model for shared behavior
-
-Generate:
-```ruby
-class CommentsController < ApplicationController
-  before_action :set_commentable
-  before_action :set_comment, only: %i[ show edit update destroy ]
-
-  def index
-  end
-
-  def show
-  end
-
-  def new
-    @comment = @commentable.comments.new
-  end
-
-  def edit
-  end
-
-  def create
-    @comment = @commentable.comments.create!(comment_params)
-    redirect_to @comment, notice: "Comment created."
-  end
-
-  def update
-    @comment.update!(comment_params)
-    redirect_to @comment, notice: "Comment updated."
-  end
-
-  def destroy
-    @comment.destroy!
-    redirect_to @commentable, notice: "Comment deleted."
-  end
-
-  private
-    def set_commentable
-      @commentable = params[:commentable_type].constantize.find(params[:commentable_id])
-    end
-
-    def set_comment
-      @comment = @commentable.comments.find(params[:id])
-    end
-
-    def comment_params
-      params.require(:comment).permit(:body)
-    end
-end
-```
-
-Self-check:
-> 🦅 **Railhawk self-check**: DHH approves (REST, 1-line actions, `create!`/`update!`/`destroy!`, no service objects). Sandi Metz: controller instantiates 2 objects (`@commentable`, `@comment`) -- consider extracting one to a before_action-only lookup that doesn't set an instance variable. Xavier Noria: file naming matches constant (`CommentsController` → `comments_controller.rb`). Matz: readable, intention-revealing method names.
+- DHH beats everyone on: service objects (reject), microservices (reject), monolith (keep), build tools (none), auth (hand-roll), RSpec (reject), Devise (reject)
+- Metz beats DHH on: class ≤100L, method ≤5L -- DHH concerns work within this
+- Searls beats DHH on: unit test design, mocking rules
+- Ties: simpler (fewer files, fewer deps, fewer abstractions)
 
 ---
 
 ## Reference Cards
 
 Load on-demand from `references/` per selected leader:
-- `dhh.md`, `sandi_metz.md`, `avdi_grimm.md`, `matz.md`, `xavier_noria.md`
-- `aaron_patterson.md`, `jose_valim.md`, `nate_berkopec.md`, `eileen_uchitelle.md`
-- `noel_rappin.md`, `justin_searls.md`, `pawel_urbanek.md`, `akshay_khot.md`
-- `chris_oliver.md`, `lee_robinson.md`
+Core: `dhh.md`, `sandi_metz.md`, `avdi_grimm.md`, `matz.md`, `xavier_noria.md`
+Specialists: `aaron_patterson.md`, `jose_valim.md`, `nate_berkopec.md`, `eileen_uchitelle.md`, `noel_rappin.md`, `justin_searls.md`, `pawel_urbanek.md`, `akshay_khot.md`, `chris_oliver.md`, `lee_robinson.md`
